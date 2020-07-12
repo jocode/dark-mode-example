@@ -1,6 +1,7 @@
+/* https://pythonprogramming.net/raspberry-pi-camera-opencv-face-detection-tutorial/ */
 /* Declaramos las variables */
 :root {
-  -lime-green: hsl(163, 72%, 41%);
+  --lime-green: hsl(163, 72%, 41%);
   --bright-red: hsl(356, 69%, 56%);
   --facebook: #168ef4;
   --twitter: hsl(203, 89%, 53%);
@@ -20,48 +21,320 @@
 body {
   margin: 0;
   font-family: "Inter", sans-serif;
+  color: var(--baseColor);
 }
 
 .wrapper {
   padding: 0 30px;
 }
 
-.card {
-  border-radius: 5px;
-  overflow: hidden;
-  background-color: #f0f3fa;
-  text-align: center;
+.grid {
+  display: grid;
+  grid-row-gap: 25px; /* El gap es el espaciado de elementos de fila*/
 }
 
-.card-title {
+/* Switch */
+.checkbox:checked ~ .switch:before {
+  transform: translateX(0);
+}
+
+.switch {
+  /* border: 1px solid red; */
+  height: 40px;
+  display: block;
+  border-radius: 20px;
+  background: var(--gray);
+  width: 80px;
+  padding: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dark-mode {
   display: flex;
+  justify-content: space-between;
+  padding-top: 1em;
   align-items: center;
-  justify-content: center;
 }
 
-.card-title img {
-  margin-right: 5px;
+.checkbox {
+  display: none;
+}
+
+.switch:before {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 50%;
+  transform: translateX(40px);
+  transition: 0.3s;
+  will-change: transform;
+}
+
+/* ----- Header  ------- */
+.header {
+  /* border: 1px solid red; */
+  /* display: none; */
+  background: var(--lightGray);
+  padding-bottom: 100px;
+  border-radius: 0 0 20px 20px;
+  padding-top: 2em;
+}
+
+.header-total {
+  color: var(--gray);
+  margin: 0.5em 0;
+  font-weight: 600;
+  border-bottom: 1px solid var(--gray);
+  padding-bottom: 1.5em;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.7em;
+}
+
+/* ------ top-cards ----- */
+.top-cards {
+  /* display: none; */
+  /* border: 1px solid green; */
+  margin-top: -50px;
+  margin-bottom: 3em;
+}
+
+/* ------- Card  --------- */
+
+.card {
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--cardGray);
+  text-align: center;
+  padding: 1.7em 0;
+  position: relative;
 }
 
 .card::before {
   content: "";
   height: 4px;
   display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cardTitle);
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.card-title img {
+  margin-right: 5px;
+}
+
+.card.facebook::before {
   background: var(--facebook);
 }
 
-.card-followers {
-  border: 1px solid red;
+.card.twitter::before {
+  background: var(--twitter);
+}
+
+.card.instagram::before {
+  background-image: linear-gradient(
+    to right,
+    var(--instagram-1) 0%,
+    var(--instagram-2) 100%
+  );
+}
+
+.card.youtube::before {
+  background: var(--youTube);
 }
 
 .card-followers-number {
-  border: 1px solid green;
+  /* border: 1px solid green; */
   font-size: 50px;
   font-weight: 700;
 }
 
 .card-followers-title {
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   display: block;
   text-transform: uppercase;
+  color: var(--gray);
+  letter-spacing: 5px;
+  font-size: 0.75em;
+  margin-top: 20px;
+}
+
+.card-today {
+  margin-top: 20px;
+  color: var(--lime-green);
+  font-size: 0.7em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-today img {
+  margin-right: 5px;
+}
+
+/* overview */
+.overview {
+  /* border: 1px solid pink; */
+  padding-bottom: 2em;
+}
+
+h2 {
+  color: var(--gray);
+}
+
+.card-small {
+  /* border: 1px solid red; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 1.5em;
+  background: var(--cardGray);
+  border-radius: 8px;
+  padding: 1.7em;
+}
+
+.card-small p {
+  margin: 0;
+}
+
+.card-small-views {
+  /* border: 1px solid green; */
+  color: var(--gray);
+  font-weight: 600;
+  font-size: 0.9em;
+}
+
+.card-small-icon {
+  /* border: 1px solid orange; */
+  text-align: right;
+}
+
+.card-small-number {
+  /* border: 1px solid purple; */
+  font-weight: bold;
+  font-size: 2.5em;
+  line-height: 0.9em;
+}
+
+.card-small-percentaje {
+  /* border: 1px solid peru; */
+  text-align: right;
+  display: flex;
+  justify-content: flex-end; /* Horizontal */
+  align-items: flex-end; /* Vertical */
+  color: var(--lime-green);
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.card-small-percentaje.is-danger {
+  color: var(--bright-red);
+}
+
+.card-small-percentaje span {
+  display: flex;
+  align-items: center;
+}
+
+.card-small-percentaje img {
+  margin-right: 5px;
+}
+
+/* ------- Media Queries - Se Desarrolla Mobile First-------- */
+@media screen and (min-width: 480px) {
+  /* Hasta un mínimo de 480px agregue estos estilos*/
+  .grid {
+    /* border: 1px solid purple; */
+    grid-template-columns: 1fr 1fr;
+    column-gap: 25px;
+  }
+
+  .wrapper {
+    max-width: 1440px;
+    margin: auto;
+  }
+}
+
+/* ------- Media Queries - Se Desarrolla Mobile First-------- */
+@media screen and (min-width: 768px) {
+  /* Hasta un mínimo de 768px agregue estos estilos*/
+  .grid {
+    /* border: 1px solid purple; */
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .wrapper {
+    max-width: 1440px;
+    margin: auto;
+  }
+}
+
+/* ------- Media Queries - Se Desarrolla Mobile First-------- */
+@media screen and (min-width: 1024px) {
+  /* Hasta un mínimo de 1024px agregue estos estilos*/
+  .grid {
+    /* border: 1px solid purple; */
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 25px;
+  }
+  .header-grid {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+  }
+
+  .wrapper {
+    max-width: 1440px;
+    margin: auto;
+  }
+
+  .header-total {
+    border: none;
+  }
+}
+
+/* DarkMode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cardGray: #252b43;
+    --gray: #8088ad;
+  }
+  body {
+    background: #1d2029;
+    color: white;
+  }
+  .header {
+    background: #1d2029;
+  }
+
+  .card-followers-title {
+    color: white;
+  }
+  .card-title {
+    color: var(--gray);
+  }
+  .card-small-views {
+    color: var(--gray);
+  }
+  .switch {
+    background-image: linear-gradient(to right, #4796d2 0%, #37ce8f 100%);
+  }
+  .switch:before {
+    background: #282943;
+  }
 }
