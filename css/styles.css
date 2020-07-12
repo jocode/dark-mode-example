@@ -22,6 +22,7 @@ body {
   margin: 0;
   font-family: "Inter", sans-serif;
   color: var(--baseColor);
+  background: var(--baseBackground);
 }
 
 .wrapper {
@@ -35,7 +36,7 @@ body {
 
 /* Switch */
 .checkbox:checked ~ .switch:before {
-  transform: translateX(0);
+  transform: translateX(40px);
 }
 
 .switch {
@@ -43,7 +44,7 @@ body {
   height: 40px;
   display: block;
   border-radius: 20px;
-  background: var(--gray);
+  background: var(--switch);
   width: 80px;
   padding: 5px;
   box-sizing: border-box;
@@ -67,9 +68,9 @@ body {
   display: block;
   width: 30px;
   height: 30px;
-  background-color: white;
+  background-color: var(--switchSpinner);
   border-radius: 50%;
-  transform: translateX(40px);
+  transform: translateX(0);
   transition: 0.3s;
   will-change: transform;
 }
@@ -169,7 +170,7 @@ h1 {
   /* border: 1px solid blue; */
   display: block;
   text-transform: uppercase;
-  color: var(--gray);
+  color: var(--cardTitle);
   letter-spacing: 5px;
   font-size: 0.75em;
   margin-top: 20px;
@@ -215,7 +216,7 @@ h2 {
 
 .card-small-views {
   /* border: 1px solid green; */
-  color: var(--gray);
+  color: var(--cardTitle);
   font-weight: 600;
   font-size: 0.9em;
 }
@@ -308,33 +309,38 @@ h2 {
   }
 }
 
+.is-dark-mode {
+  --cardGray: #252b43;
+  --gray: #8088ad;
+  --lightGray: #1d2029;
+  --baseColor: white;
+  --baseBackground: #1d2029;
+  --cardTitle: #8088ad;
+  --switchSpinner: #282943;
+  --switch: linear-gradient(to right, #4796d2 0%, #37ce8f 100%);
+}
+
+.is-light-mode {
+  --gray: #5f616d;
+  --cardGray: #f0f3fa;
+  --lightGray: #f8f9fe;
+  --cardTitle: #6f717e;
+  --baseBackground: white;
+  --baseColor: #1d2029;
+  --switchSpinner: white;
+  --switch: #5f616d;
+}
+
 /* DarkMode */
 @media (prefers-color-scheme: dark) {
   :root {
     --cardGray: #252b43;
     --gray: #8088ad;
-  }
-  body {
-    background: #1d2029;
-    color: white;
-  }
-  .header {
-    background: #1d2029;
-  }
-
-  .card-followers-title {
-    color: white;
-  }
-  .card-title {
-    color: var(--gray);
-  }
-  .card-small-views {
-    color: var(--gray);
-  }
-  .switch {
-    background-image: linear-gradient(to right, #4796d2 0%, #37ce8f 100%);
-  }
-  .switch:before {
-    background: #282943;
+    --lightGray: #1d2029;
+    --baseColor: white;
+    --baseBackground: #1d2029;
+    --cardTitle: #8088ad;
+    --switchSpinner: #282943;
+    --switch: linear-gradient(to right, #4796d2 0%, #37ce8f 100%);
   }
 }
